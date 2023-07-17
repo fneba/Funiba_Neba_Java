@@ -1,7 +1,11 @@
 use northwind;
 
--- What are the categories of products in the database?
+-- What are the categories of products in the database? (category of each product)
 select category
+from products;
+
+-- What are the categories of products in the database? (distinct product categories)
+select DISTINCT category
 from products;
 
 -- What products are made by Dell?
