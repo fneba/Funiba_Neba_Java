@@ -1,10 +1,16 @@
 package com.company.bookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "author")
 public class Author {
 
     @Id
@@ -24,6 +30,22 @@ public class Author {
     private String postalCode;
     private String phone;
     private String email;
+
+
+    public Author(int id, Set<Book> books, String firstName, String lastName, String street, String city, String state, String postalCode, String phone, String email) {
+        this.id = id;
+        this.books = books;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.postalCode = postalCode;
+        this.phone = phone;
+        this.email = email;
+    }
+
+    public Author() {}
 
     public int getId() {
         return id;
@@ -117,4 +139,18 @@ public class Author {
     public int hashCode() {
         return Objects.hash(getId(), getBooks(), getFirstName(), getLastName(), getStreet(), getCity(), getState(), getPostalCode(), getPhone(), getEmail());
     }
+
+//    public Author(String firstName, String lastName, String street, String city, String state, String postalCode, String phone, String email) {
+//        this.id = id;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.street = street;
+//        this.city = city;
+//        this.state = state;
+//        this.postalCode = postalCode;
+//        this.phone = phone;
+//        this.email = email;
+//    }
+
+
 }

@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface PublisherRepository extends JpaRepository<Publisher, Integer> {
 
-    List<Publisher> findById(int publisherId);
+
 }

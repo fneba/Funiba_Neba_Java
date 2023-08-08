@@ -1,6 +1,7 @@
 package com.company.bookstore.controller;
 
 
+import com.company.bookstore.model.Author;
 import com.company.bookstore.model.Book;
 import com.company.bookstore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,9 @@ public class BookController {
     // ReadById
     @GetMapping("/books/{id}")
     public Book getBookById(@PathVariable int id) {
-        Optional<Book> returnVal = repo.findById(id);
-        if (returnVal.isPresent()){
-            return returnVal.get();
-        } else {
-            return null;
-        }
+        Optional<Book> book = repo.findById(id); // Use Optional
+
+        return book.orElse(null); // Return the author if present, otherwise null
     }
 
     // (C) Create

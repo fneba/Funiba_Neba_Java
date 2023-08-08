@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class AuthorController {
@@ -15,36 +16,32 @@ public class AuthorController {
     AuthorRepository repo;
 
     @GetMapping("/authors")
-    public List<Author> getAuthors(){
-        return serviceLayer.findAllAuthors();
+    public List<Author> getAuthors() {
+        return repo.findAll(); // Use the repository directly to fetch all authors
     }
 
+    @GetMapping("/authors/{id}")
+    public Author getAuthorById(@PathVariable int id) {
+        Optional<Author> author = repo.findById(id); // Use Optional
 
-    // must fix this, might be optional instead of list (look at service layer)
-//    @GetMapping("/authors/{id}")
-//    public Author getAuthorById(@PathVariable int id) {
-//        List<Author> author = repo.findById(id);
-//
-//        return author;
-//    }
+        return author.orElse(null); // Return the author if present, otherwise null
+    }
 
     @PostMapping("/authors")
     @ResponseStatus(HttpStatus.CREATED)
     public Author addAuthor(@RequestBody Author author) {
-        return serviceLayer.saveAuthor(author);
+        return repo.save(author); // Save the author directly using the repository
     }
 
     @PutMapping("/authors")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateAuthor(@RequestBody Author author) {
-        serviceLayer.updateAuthor(author);
+        repo.save(author); // Update the author directly using the repository
     }
 
     @DeleteMapping("/author/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAuthor(@PathVariable int id) {
-        serviceLayer.removeAuthor(id);
+        repo.deleteById(id); // Remove the author directly using the repository
     }
-
-
 }

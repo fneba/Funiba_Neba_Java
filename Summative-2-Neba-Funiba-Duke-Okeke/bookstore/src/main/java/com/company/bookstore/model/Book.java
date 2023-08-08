@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -12,18 +11,36 @@ import java.util.Objects;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "book")
-public class Book implements Serializable {
+public class Book {
 
     @Id
+    @Column(name="book_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String isbn;
     private LocalDate publishDate;
+
+    @Column(name="author_id")
     private int authorId;
     private String title;
+
+    @Column(name="publisher_id")
     private int publisherId;
     private BigDecimal price;
+
+    public Book(int id, String isbn, LocalDate publishDate, int authorId, String title, int publisherId, BigDecimal price) {
+        this.id = id;
+        this.isbn = isbn;
+        this.publishDate = publishDate;
+        this.authorId = authorId;
+        this.title = title;
+        this.publisherId = publisherId;
+        this.price = price;
+    }
+
+    public Book() {}
+
 
     public int getId() {
         return id;
